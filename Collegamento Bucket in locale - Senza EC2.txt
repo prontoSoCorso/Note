@@ -1,0 +1,64 @@
+
+**NECESSARIA AUTENTICAZIONE A DUE FATTORI**
+sudo apt remove awscli
+sudo apt update
+sudo apt install curl
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws --version (verifico installazione)
+
+*Configurazione dell'AWS CLI*
+aws configure
+*chiede Access Jey ID, Secret Access Key, default region (eu-west-1) e default format (json)*
+
+*Comando per creare credenziali di accesso, parte fondamentale*
+aws sts get-session-token --serial-number arn:aws:iam::014574369151:mfa/lorenzo_corso --token-code AUTH_CODE --duration-seconds 129600 > ~/aws_session_token.json
+cat ~/aws_session_token.json (per visualizzarlo)
+
+**Uso la libreria s3fs (s3 fusion) per creare un collegamento virtuale con il bucket senza scaricare i dati (uso dati in remoto come fosse file system, scaricandoli solo durante utilizzo, come cache)**
+sudo apt update
+sudo apt install s3fs
+echo AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY > ~/.passwd-s3fs
+chmod 600 ~/.passwd-s3fs
+mkdir -p /home/giovanna/Desktop/CorsoData/blastocisti
+
+*Aggiorno il file passwd con le nuove access keys*
+echo "$ACCESS_KEY:$SECRET_KEY" > ~/.passwd-s3fs
+
+*Aggiorno variabili di ambiente*
+export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' ~/aws_session_token.json)
+export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecetAccessKey' ~/aws_session_token.json)
+export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' ~/aws_session_token.json)
+
+*Monto il bucket*
+s3fs dheal-com-pnc /home/giovanna/Desktop/CorsoData/blastocisti -o allow_other -o url=https://s3.amazonaws.com (*se non funziona, devo attivare allow_other dall'interfaccia nano ("sudo nano /etc/fuse.conf" e tolgo # davanti a "user_allow_other")*)
+
+
+**PER SMONTARE IL BUCKET**
+fusermount -u /home/giovanna/Desktop/CorsoData/blastocisti
+
+
+**Quando lo voglio rimontare, se le credenziali non sono ancora scadute posso semplicemente rifare l'ultimo comando (s3fs etc...), altrimenti devo rifare tutti i passaggi precedentemente descritti (creo nuove credenziali temporanee con mio MFA, aggiorno variabili d'ambiente e aggiorno file passwwd-s3fs, monto con comando s3fs)**
+
+*
+Inoltre, se non sono scadute e ne voglio creare altre, devo prima unsettare le variabili di ambiente:
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+
+poi rifaccio i passaggi come prima
+*
+
+
+fusermount -u /home/giovanna/Desktop/CorsoData/blastocisti
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+aws sts get-session-token --serial-number arn:aws:iam::014574369151:mfa/lorenzo_corso --token-code AUTH_CODE --duration-seconds 129600 > ~/aws_session_token.json
+export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' ~/aws_session_token.json)
+export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' ~/aws_session_token.json)
+export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' ~/aws_session_token.json)
+echo "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" > ~/.passwd-s3fs
+chmod 600 ~/.passwd-s3fs
+s3fs dheal-com-pnc:/blastocisti /home/giovanna/Desktop/CorsoData/blastocisti -o allow_other -o url=https://s3.amazonaws.com

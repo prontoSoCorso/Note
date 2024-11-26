@@ -1,0 +1,3 @@
+Analizzati 3389 Time Lapse di cui 1875 blasto e 1514 no_blasto
+Salvati correttamente: 1356 blasto e 1106 no_blasto
+Errori: 519 blasto e 408 no_blasto

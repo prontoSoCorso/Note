@@ -1,0 +1,92 @@
+Cost allocation tags - per monitorare quello che faccio e per i bugdets. Li posso impostare ma non per utente
+
+Ho permessi EC2
+
+AWS cli - chiamo web service che tira su macchina quando faccio partire codice. 
+
+
+
+
+
+
+INFO UTILI
+
+PARTE 1 - collegare ssh
+https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.youtube.com/watch%3Fv%3DKQr0eI97cLQ&ved=2ahUKEwiy057wtYmJAxXGlP0HHSTqMLcQwqsBegQIDhAF&usg=AOvVaw2xeECGsI9faMbxOFhlG082
+
+NB: MEGLIO USARE UN ELASTIC IP, IN MODO CHE NON BISGONA RIFARE COLLEGAMENTO QUANDO SI ARRESTA E SI RIAVVIA ISTANZA!
+	Per farlo vado su elastic IP, creo, e poi lo assegno all'istanza ed uso quello per collegare vs code
+
+ssh -i "C:\Users\loren\Documenti\BlastoKeys.pem" ec2-user@ec2-52-211-125-145.eu-west-1.compute.amazonaws.com
+
+
+PARTE 2 - abilitare git
+https://medium.com/@aarishmaqsood/step-by-step-configuring-ec2-ssh-enabled-git-and-integration-with-vs-code-bde24292f3d9
+
+
+sudo yum install git -y
+git config --global user.name "Lorenzo Corso"
+git config --global user.email "lorenzo.corso01@universitadipavia.it"
+mkdir -p /home/ec2-user/.ssh
+ssh-keygen -t rsa -b 4096 -C "lorenzo.corso01@universitadipavia.it" -f /home/ec2-user/.ssh/id_github
+(posso non mettere alcuna passphrase, premo due volte invio)
+eval "$(ssh-agent -s)"
+ssh-add /home/ec2-user/.ssh/id_github
+cat /home/ec2-user/.ssh/id_github.pub
+
+ssh -T git@github.com    --> poi deve uscire: <<Hi username! You've successfully authenticated, but GitHub does not provide shell access.>>
+
+nano ~/.ssh/config
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_github
+CTRL+O, Invio, CTRL+X
+
+# Do i permessi
+chmod 700 ~/.ssh               # Permessi sulla directory .ssh
+chmod 600 ~/.ssh/config         # Permessi sul file config
+chmod 600 ~/.ssh/id_github      # Permessi sulla chiave privata
+chmod 600 ~/.ssh/id_github.pub  # Permessi sulla chiave pubblica
+
+# Clono il repository
+cd ~
+git clone git@github.com:prontoSoCorso/cellPIV.git
+cd cellPIV
+
+
+# Creo l'ambiente virtuale
+
+
+
+
+
+
+
+
+PARTE 3 - Utilizzare il bucket
+Devo collegare il bucket all'istanza EC2.
+Per farlo devo:
+- Creare ruolo IAM con almeno accesso alla lettura del bucket s3 (AccessReadOnlys3 tipo)
+- Andare su EC2, sicurezza, modifica ruolo IAM e aggiungo il ruolo in modo tale da avere accesso al bucket
+- per verificare connessione: aws s3 ls s3://dheal-com-pnc/blastocisti/
+
+Ora devo montare il bucket:
+sudo yum install s3fs-fuse -y
+sudo yum install automake fuse fuse-devel gcc-c++ git libcurl-devel libxml2-devel make openssl-devel
+
+git clone https://github.com/s3fs-fuse/s3fs-fuse.git
+cd s3fs-fuse
+./autogen.sh
+./configure --prefix=/usr --with-openssl
+make
+sudo make install
+
+sudo mkdir /mnt/s3bucket
+s3fs dheal-com-pnc /mnt/s3bucket -o iam_role=auto (faccio prima "sudo chmod 777 /mnt/s3bucket" se dice permission denied)
+Verifico che sia montato: ls ~/mnt/s3bucket
+Per smontarlo: sudo umount ~/mnt/s3bucket
+
+
+
+PATH DEI DATI: cd /mnt/s3bucket/blastocisti

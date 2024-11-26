@@ -1,0 +1,74 @@
+UBUNTU
+
+*Se si riesce (python già su ubuntu)*
+sudo apt update
+sudo apt install python3.11 python3.11-venv
+
+*Se invece non lo trova, installo da PPA di Deadsnakes*
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.11 python3.11-venv
+
+*Creo ambiente*
+python3.11 -m venv /pathToMyVenv/NomeVenv
+
+*Attivo ambiente virtuale*
+source /pathToMyVenv/NoveVenv/bin/activate
+
+*Poi apro VsCode*
+- Vado nella cartella del progetto
+- Ctrl+Shift+P
+- Python:Select Interpreter
+- Metto percorso: /pathToMyVenv/NomeVenv/bin/python3.11
+
+
+
+
+
+
+
+WINDOWS
+*Lo scarico dal sito ufficiale. Cerco una versione che abbia il windows installer e non il file tar o altri perché diventa un mezzo casino*
+*Verifico di averlo installato correttamente*
+python --version
+
+*Creo la cartella dove voglio con mkdir, ipotizzo path "pathToMyVenv". Per evitare casini di windows la posso creare a mano*
+
+*Creo l'ambiente virtuale*
+python -m venv C:\pathToMyVenv\NomeVenv
+Oppure, come alternativa, mi metto nella cartella dei venv e apro la bash lì e lo creo solo con il nome
+
+*Attivo l'ambiente*
+C:\pathToMyVenv\Scripts\activate
+Sempre, se ci sono problemi, clicco il file batch dentro, a mano
+
+*Poi apro VsCode*
+- Vado nella cartella del progetto
+- Ctrl+Shift+P
+- Python:Select Interpreter
+- Metto percorso: C:\pathToMyVenv\NomeVenv\Scripts\python.exe
+Stessa cosa, nell'ultimo passo posso navigare tra le cartelle e poi seleziono l'applicazione "python" dentro il venv
+
+
+
+
+
+
+**SE CI SONO PROBLEMI CON UBUNTU**
+*Può succedere che non si colleghi bene l'ambiente virtuale e, anche se in basso a destra in vscode c'è la scritta dell'ambiente virtuale, in realtà non è così*
+which python 	*verifico che sia attivato ambiente, se non esce nulla è sbagliato*
+which pip
+
+*Nel caso non esca nulla, potrebbe essere un problema di alias*
+alias python
+
+*Se non esce nulla o uno sbagliato, lo rimuovo (unalias python) e lo creo manualmente*
+export PATH="/home/giovanna/Desktop/CorsoVenvs/BlastoVenv/bin:$PATH"
+
+*verifico con which python*
+*Poi, se ci sono problemi con pip*
+/home/giovanna/Desktop/CorsoVenvs/BlastoVenv/bin/python -m ensurepip --upgrade
+/home/giovanna/Desktop/CorsoVenvs/BlastoVenv/bin/python -m pip install --upgrade pip
+which pip
+pip --version
+pip list
