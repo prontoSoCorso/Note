@@ -1,0 +1,28 @@
+** installazione di python e scelta della versione **
+sudo add-apt-repository ppa:deadsnakes/ppa (se voglio versioni particolari)
+
+sudo apt update
+sudo apt upgrade
+sudo apt install python3.10 (o qualsiasi altra versione)
+sudo apt install -y python3-pip (installazione di pip)
+
+*Verifico installazioni* --> python3 --version / pip3 --version
+
+*Se installo più versioni di python, controllo priorità associata con...*
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 2
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+
+*Il numero associato è la priorità e la versione con la priorità maggiore sarà selezionata automaticamente. Lo verifico con:*
+sudo update-alternatives --config python3
+
+*OUTPUT:
+sudo update-alternatives --config python3
+Sono disponibili 2 scelte per l'alternativa python3 (che fornisce /usr/bin/python3).
+
+  Selezione    Percorso             Priorità  Stato
+------------------------------------------------------------
+* 0            /usr/bin/python3.10   2         modalità automatica
+  1            /usr/bin/python3.10   2         modalità manuale
+  2            /usr/bin/python3.12   1         modalità manuale
+
+
