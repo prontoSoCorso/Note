@@ -1,0 +1,74 @@
+## 3 DAYS ##
+ROCKET
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.6100
+Test Balanced Accuracy: 0.6050
+Test Cohen's Kappa: 0.2120
+Test Brier Score Loss: 0.3900
+Test F1 Score: 0.6739
+
+
+LSTMFCN
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.6266
+Test Balanced Accuracy: 0.6216
+Test Cohen's Kappa: 0.2455
+Test Brier Score Loss: 0.2396
+Test F1 Score: 0.6883
+
+
+ConvTran
+=====ConvTran Test Metrics=====
+Accuracy: 0.6136783733826248
+Balanced Accuracy: 0.6097395847580491
+Cohen Kappa: 0.2210893960582242
+Brier Score: 0.24285408626481322
+F1 Score: 0.6666666666666666
+
+
+
+
+
+
+
+
+
+
+## 7 DAYS ##
+ROCKET (500 kernel)
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.8466
+Test Balanced Accuracy: 0.8458
+Test Cohen's Kappa: 0.6925
+Test Brier Score Loss: 0.1534
+Test F1 Score: 0.8541
+
+
+LSTMFCN
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.8392
+Test Balanced Accuracy: 0.8384
+Test Cohen's Kappa: 0.6777
+Test Brier Score Loss: 0.1384
+Test F1 Score: 0.8471
+
+
+ConvTran
+=====ConvTran Test Metrics=====
+Accuracy: 0.8373382624768947
+Balanced Accuracy: 0.8351615285718194
+Cohen Kappa: 0.6730848463207625
+Brier Score: 0.12833096967571703
+F1 Score: 0.8523489932885906
+
+
+
+
+
+
+
+
+
+
+
+
