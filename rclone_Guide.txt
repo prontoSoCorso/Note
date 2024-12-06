@@ -1,0 +1,27 @@
+## Per scaricare grandi quantità di dati (su ubuntu) da onedrive ##
+# OneDrive infatti ha il limite di 20Gb per il download e upload di cartelle zippate, 250Gb per file per singola operazione #
+
+sudo apt update
+sudo apt install rclone
+
+rclone config
+
+--> - Nuovo remoto → scegli un nome (es. onedrive).
+    - Scegli il tipo di storage: OneDrive.  (Devo scegliere il numero corrispondente nella lista)
+        # Client ID e Client Secret: Puoi lasciare vuoti questi campi premendo semplicemente Invio, e Rclone utilizzerà le credenziali predefinite.
+        Edit advanced config?: Rispondi n (no) per evitare configurazioni avanzate.
+        Use auto config?: Rispondi y (yes) se stai lavorando su un sistema con accesso al browser.
+    - Accedi con il tuo account Microsoft (ti sarà richiesto di autorizzare Rclone).
+    - faccio "q" per uscire dal config
+
+Verifica la configurazion → rclone lsd onedrive:
+    
+rclone copy onedrive:Percorso/Della/Cartella /path/local/di/destinazione    # Singola cartella
+rclone sync onedrive:Percorso/Della/Cartella /path/local/di/destinazione    # Per più cartelle
+
+# Posso scrivere uno script per automatizzarlo o mettere delle regole
+
+
+
+
+
