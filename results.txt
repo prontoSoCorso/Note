@@ -34,6 +34,50 @@ F1 Score: 0.6683229813664596
 
 
 
+## 5 DAYS ##
+ROCKET (10000 kernel)
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.8215
+Test Balanced Accuracy: 0.8218
+Test Cohen's Kappa: 0.6378
+Test Brier Score Loss: 0.1785
+Test F1 Score: 0.7964
+
+
+
+LSTMFCN
+=====FINAL TEST RESULTS=====
+Test Accuracy: 0.8237
+Test Balanced Accuracy: 0.8227
+Test Cohen's Kappa: 0.6413
+Test Brier Score Loss: 0.1217
+Test F1 Score: 0.7969
+
+
+
+ConvTran
+=====ConvTran Test Metrics=====
+Accuracy: 0.8169491525423729
+Balanced Accuracy: 0.8097647058823529
+Cohen Kappa: 0.6230477993374349
+Brier Score: 0.1219153186403855
+F1 Score: 0.779291553133515
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 7 DAYS ##
 ROCKET (10000 kernel)
 =====FINAL TEST RESULTS=====
