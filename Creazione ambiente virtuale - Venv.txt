@@ -19,6 +19,7 @@ source /pathToMyVenv/NoveVenv/bin/activate
 - Vado nella cartella del progetto
 - Ctrl+Shift+P
 - Python:Select Interpreter
+- Se ho più cartelle nel workspace posso scegliere per quale selezionare l'interprete
 - Metto percorso: /pathToMyVenv/NomeVenv/bin/python3.11
 
 
