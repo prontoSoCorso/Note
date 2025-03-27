@@ -32,12 +32,17 @@ WINDOWS
 *Lo scarico dal sito ufficiale. Cerco una versione che abbia il windows installer e non il file tar o altri perché diventa un mezzo casino*
 *Verifico di averlo installato correttamente*
 python --version
+(Per vedere tutte le versioni --> py --list)
+(Per vedere tutte le versioni ed il loro path --> py -0p)
 
 *Creo la cartella dove voglio con mkdir, ipotizzo path "pathToMyVenv". Per evitare casini di windows la posso creare a mano*
 
 *Creo l'ambiente virtuale*
 python -m venv C:\pathToMyVenv\NomeVenv
 Oppure, come alternativa, mi metto nella cartella dei venv e apro la bash lì e lo creo solo con il nome
+
+*To create an environment with a specific py version*
+py -3.10 -m venv C:\pathToMyVenv\NomeVenv
 
 *Attivo l'ambiente*
 C:\pathToMyVenv\Scripts\activate
